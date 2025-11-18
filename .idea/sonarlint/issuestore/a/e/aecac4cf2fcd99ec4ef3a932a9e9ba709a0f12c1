@@ -1,0 +1,18 @@
+
+‡
+java:S1854"?Remove this useless assignment to local variable "userService".(ïöúòøÿÿÿÿ8á¼ÓÁ©3J$611f1a82-e034-4fc0-9036-3adc5bb3bacb
+
+java:S1854"ERemove this useless assignment to local variable "companyRepository".(ôš­¾ùÿÿÿÿ8ğ¼ÓÁ©3J$c0ceb71a-e079-4d2c-ac21-9b452bc3bfd4
+…
+java:S1854"BRemove this useless assignment to local variable "userRepository".(‚Ú½¦8ó¼ÓÁ©3J$5f1db008-aee3-44e3-b4c9-0d87033bea7c
+Š
+java:S1854"BRemove this useless assignment to local variable "connectionPool".(üêàºüÿÿÿÿ8€½ÓÁ©3J$5a9103ab-be75-429a-8490-c0a9af1312d6
+~	java:S125"<This block of commented-out lines of code should be removed.(¹ã¯8Œ½ÓÁ©3J$b1520eb3-f045-4b5b-a0e6-9f93c69f0b9d
+{
+java:S1481"3Remove this unused "connectionPool" local variable.(üêàºüÿÿÿÿ8½ÓÁ©3J$526b963d-5bae-4fd8-a4f9-978150af595e
+v
+java:S1481"3Remove this unused "userRepository" local variable.(‚Ú½¦8”½ÓÁ©3J$76dddad4-bd7a-4ab2-9171-d114a22caa4a
+~
+java:S1481"6Remove this unused "companyRepository" local variable.(ôš­¾ùÿÿÿÿ8–½ÓÁ©3J$38f69cb4-0fa7-418f-aca0-a1f54461ff98
+x
+java:S1481"0Remove this unused "userService" local variable.(ïöúòøÿÿÿÿ8›½ÓÁ©3J$c2607879-c353-44ea-8fa6-9ee922e8cfe6
