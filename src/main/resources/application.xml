@@ -7,7 +7,7 @@
     <constructor-arg type="java.lang.String" value="postgres"/>
   </bean>
 
-  <bean id="pool1" name="p1,p2,p3" class="by.epam.pool.ConnectionPool">
+  <bean id="pool1" name="p1,p2,p3" class="by.epam.pool.ConnectionPool" scope="prototype">
     <constructor-arg index="0" ref="driver"/>
     <constructor-arg index="1" value="10"/>
     <constructor-arg index="2">
