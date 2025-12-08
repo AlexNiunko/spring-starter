@@ -2,8 +2,9 @@ package by.epam.pool;
 
 import java.util.List;
 import java.util.Map;
+import org.springframework.beans.factory.InitializingBean;
 
-public class ConnectionPool {
+public class ConnectionPool implements InitializingBean {
 
     private  String userName;
     private  Integer poolSize;
@@ -19,5 +20,19 @@ public class ConnectionPool {
 
     public void setProperties(Map<String, Object> properties) {
         this.properties = properties;
+    }
+
+    private void init(){
+        System.out.println("Init connection pool");
+    }
+
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("Properties set");
+    }
+
+    private void destroy() {
+        System.out.println("Clean connection pool");
     }
 }
