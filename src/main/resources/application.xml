@@ -9,6 +9,9 @@
 
   <context:property-placeholder location="classpath:application.properties"/>
 
+  <bean class="by.epam.bfpp.LogBeanFactoryPostProcessor"/>
+  <bean class="by.epam.bfpp.VerifyBeanFactoryPostProcessor"/>
+
   <bean id="driver" class="java.lang.String">
     <constructor-arg type="java.lang.String" value="${db.driver}"/>
   </bean>
