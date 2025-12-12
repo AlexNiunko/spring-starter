@@ -3,6 +3,7 @@ package by.epam;
 import by.epam.ioc.Container;
 import by.epam.pool.ConnectionPool;
 import by.epam.repository.CompanyRepository;
+import by.epam.repository.CrudRepository;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class ApplicationRunner {
@@ -14,8 +15,8 @@ public class ApplicationRunner {
             var connectionPool = context.getBean("p1", ConnectionPool.class);
 
             System.out.println(context.getBean("driver"));
-            CompanyRepository companyRepository = context.getBean("companyRepository", CompanyRepository.class);
-            System.out.println(companyRepository);
+            CrudRepository companyRepository = context.getBean("companyRepository", CrudRepository.class);
+            System.out.println(companyRepository.findById(1));
 
         }
 
