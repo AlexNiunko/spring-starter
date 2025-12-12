@@ -8,10 +8,10 @@ import org.springframework.beans.factory.InitializingBean;
 
 public class ConnectionPool implements InitializingBean {
 
-    private  String userName;
-    private  Integer poolSize;
-    private  List<Object> args;
-    private  Map<String, Object> properties;
+    private String userName;
+    private Integer poolSize;
+    private List<Object> args;
+    private Map<String, Object> properties;
 
     public ConnectionPool(String userName, Integer poolSize, List<Object> args, Map<String, Object> properties) {
         this.userName = userName;
@@ -20,12 +20,16 @@ public class ConnectionPool implements InitializingBean {
         this.properties = properties;
     }
 
+    public ConnectionPool() {
+
+    }
+
     public void setProperties(Map<String, Object> properties) {
         this.properties = properties;
     }
 
     @PostConstruct
-    private void init(){
+    private void init() {
         System.out.println("Init connection pool");
     }
 

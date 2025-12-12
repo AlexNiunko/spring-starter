@@ -25,6 +25,7 @@
   <!--    <property name="locations" value="application.properties"/>-->
   <!--  </bean>-->
 
+  <bean id="pool2" class="by.epam.pool.ConnectionPool"/>
   <bean id="pool1" name="p1,p2,p3" class="by.epam.pool.ConnectionPool">
     <constructor-arg name="userName" value="${db.username}"/>
     <constructor-arg name="poolSize" value="${db.pool.size}"/>
