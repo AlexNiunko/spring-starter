@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AuditingBeanPostProcessor implements BeanPostProcessor {
 
     private Map<String, Class<?>> auditingBeans = new HashMap<>();
@@ -31,7 +33,6 @@ public class AuditingBeanPostProcessor implements BeanPostProcessor {
                         return method.invoke(bean, args);
                     } finally {
                         System.out.println("Time execution " + (System.nanoTime() - startTime));
-
                     }
                 });
         }
