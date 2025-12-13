@@ -8,8 +8,11 @@ import java.util.List;
 import java.util.Optional;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
+@Scope(value = BeanDefinition.SCOPE_PROTOTYPE)
 @Transaction
 @Auditing
 public class CompanyRepository implements CrudRepository<Integer, Company> {
