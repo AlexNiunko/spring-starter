@@ -9,7 +9,7 @@ import org.springframework.context.annotation.*;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.stereotype.Component;
 
-//@ImportResource("classpath:application.xml")
+
 @Import(WebConfiguration.class)
 @Configuration(proxyBeanMethods = true)
 @PropertySource("classpath:application.properties")
@@ -38,6 +38,8 @@ public class ApplicationConfiguration {
     }
 
     @Bean
+    @Profile("prod|web")
+    //! & |
     public UserRepository userRepository2() {
         var pool1 = pool3();
         var pool2 = pool3();

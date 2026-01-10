@@ -11,7 +11,9 @@ public class ApplicationRunner {
 
         try(var context = new AnnotationConfigApplicationContext(ApplicationConfiguration.class)){
             var connectionPool = context.getBean("pool1", ConnectionPool.class);
-
+            context.register(ApplicationConfiguration.class);
+            context.getEnvironment().setActiveProfiles("web","prod");
+            context.refresh();
             CrudRepository companyRepository = context.getBean("companyRepository", CrudRepository.class);
             System.out.println(companyRepository.findById(1));
 
