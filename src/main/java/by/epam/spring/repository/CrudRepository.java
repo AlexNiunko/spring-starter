@@ -1,4 +1,4 @@
-package by.epam.repository;
+package by.epam.spring.repository;
 
 import java.util.Optional;
 

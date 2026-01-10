@@ -1,14 +1,13 @@
-package by.epam.config;
+package by.epam.spring.config;
 
-import by.epam.entity.Company;
-import by.epam.repository.CrudRepository;
-import org.springframework.context.annotation.ComponentScan;
+import by.epam.spring.repository.CrudRepository;
+import by.epam.web.config.WebConfiguration;
+import org.springframework.context.annotation.*;
 import org.springframework.context.annotation.ComponentScan.Filter;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
+//@ImportResource("classpath:application.xml")
+@Import(WebConfiguration.class)
 @Configuration
 @PropertySource("classpath:application.properties")
 @ComponentScan(basePackages = "by.epam",

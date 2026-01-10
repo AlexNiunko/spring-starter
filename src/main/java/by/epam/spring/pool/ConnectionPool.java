@@ -1,4 +1,4 @@
-package by.epam.pool;
+package by.epam.spring.pool;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

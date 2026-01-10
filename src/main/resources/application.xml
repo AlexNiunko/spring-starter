@@ -13,7 +13,7 @@
     scoped-proxy="no"
     use-default-filters="true">
    <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
-   <context:include-filter type="assignable" expression="by.epam.repository.CrudRepository"/>
+   <context:include-filter type="assignable" expression="by.epam.spring.repository.CrudRepository"/>
    <context:include-filter type="regex" expression="by\..+Repository"/>
   </context:component-scan>
 
@@ -25,7 +25,7 @@
   </bean>
 
 
-  <bean id="companyRepository" class="by.epam.repository.CompanyRepository">
+  <bean id="companyRepository" class="by.epam.spring.repository.CompanyRepository">
   </bean>
 
 </beans>

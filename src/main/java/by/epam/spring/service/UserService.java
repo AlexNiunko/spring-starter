@@ -1,8 +1,8 @@
-package by.epam.service;
+package by.epam.spring.service;
 
-import by.epam.entity.Company;
-import by.epam.repository.CrudRepository;
-import by.epam.repository.UserRepository;
+import by.epam.spring.entity.Company;
+import by.epam.spring.repository.CrudRepository;
+import by.epam.spring.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service

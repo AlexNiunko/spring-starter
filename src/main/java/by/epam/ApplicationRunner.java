@@ -1,10 +1,9 @@
 package by.epam;
 
-import by.epam.config.ApplicationConfiguration;
-import by.epam.pool.ConnectionPool;
-import by.epam.repository.CrudRepository;
+import by.epam.spring.config.ApplicationConfiguration;
+import by.epam.spring.pool.ConnectionPool;
+import by.epam.spring.repository.CrudRepository;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class ApplicationRunner {
 

@@ -1,4 +1,4 @@
-package by.epam.bfpp;
+package by.epam.spring.bfpp;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;

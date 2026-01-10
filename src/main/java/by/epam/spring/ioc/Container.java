@@ -1,4 +1,4 @@
-package by.epam.ioc;
+package by.epam.spring.ioc;
 
 public class Container {
    public <T> T get (Class<T> clazz){

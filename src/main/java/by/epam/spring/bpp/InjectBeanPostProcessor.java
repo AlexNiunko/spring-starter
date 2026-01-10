@@ -1,4 +1,4 @@
-package by.epam.bpp;
+package by.epam.spring.bpp;
 
 import java.util.Arrays;
 import org.springframework.beans.BeansException;

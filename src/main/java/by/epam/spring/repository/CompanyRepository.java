@@ -1,16 +1,16 @@
-package by.epam.repository;
+package by.epam.spring.repository;
 
-import by.epam.bpp.Auditing;
-import by.epam.bpp.Transaction;
-import by.epam.entity.Company;
-import by.epam.pool.ConnectionPool;
+import by.epam.spring.bpp.Auditing;
+import by.epam.spring.bpp.Transaction;
+import by.epam.spring.entity.Company;
+import by.epam.spring.pool.ConnectionPool;
 import java.util.List;
 import java.util.Optional;
 import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Repository;
 
 @Scope(value = BeanDefinition.SCOPE_PROTOTYPE)
 @Transaction

@@ -1,4 +1,4 @@
-package by.epam.service;
+package by.epam.spring.service;
 
 import org.springframework.stereotype.Service;
 

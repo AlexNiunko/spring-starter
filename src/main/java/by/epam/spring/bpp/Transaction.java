@@ -1,4 +1,4 @@
-package by.epam.bpp;
+package by.epam.spring.bpp;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
