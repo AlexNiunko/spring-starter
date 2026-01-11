@@ -3,6 +3,7 @@ package by.epam;
 import by.epam.spring.config.ApplicationConfiguration;
 import by.epam.spring.pool.ConnectionPool;
 import by.epam.spring.repository.CrudRepository;
+import by.epam.spring.service.CompanyService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class ApplicationRunner {
@@ -11,11 +12,9 @@ public class ApplicationRunner {
 
         try(var context = new AnnotationConfigApplicationContext(ApplicationConfiguration.class)){
             var connectionPool = context.getBean("pool1", ConnectionPool.class);
-            context.register(ApplicationConfiguration.class);
-            context.getEnvironment().setActiveProfiles("web","prod");
-            context.refresh();
-            CrudRepository companyRepository = context.getBean("companyRepository", CrudRepository.class);
-            System.out.println(companyRepository.findById(1));
+
+            CompanyService companyService = context.getBean("companyService", CompanyService.class);
+            System.out.println(companyService.findById(1));
 
         }
 
