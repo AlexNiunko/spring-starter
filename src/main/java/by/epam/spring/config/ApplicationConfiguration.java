@@ -9,10 +9,7 @@ import org.springframework.context.annotation.*;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.stereotype.Component;
 
-
 @Import(WebConfiguration.class)
-@Configuration(proxyBeanMethods = true)
-@PropertySource("classpath:application.properties")
 @ComponentScan(basePackages = "by.epam",
         useDefaultFilters = false,
         includeFilters = {
