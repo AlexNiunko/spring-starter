@@ -1,5 +1,6 @@
-package by.epam.spring.listener.entity;
+package by.epam.spring.listener;
 
+import by.epam.spring.listener.entity.EntityEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;

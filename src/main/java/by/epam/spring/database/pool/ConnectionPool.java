@@ -1,21 +1,21 @@
-package by.epam.spring.pool;
+package by.epam.spring.database.pool;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component("pool1")
+@RequiredArgsConstructor
 public class ConnectionPool {
 
+    @Value("${db.username}")
     private final String userName;
-    private final Integer poolSize;
 
-    public ConnectionPool(@Value("${db.username}") String userName,
-        @Value("${db.pool.size}") Integer poolSize) {
-        this.userName = userName;
-        this.poolSize = poolSize;
-    }
+    @Value("${db.pool.size}")
+    private final Integer poolSize;
 
 
     @PostConstruct

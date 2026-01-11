@@ -1,4 +1,4 @@
-package by.epam.spring.repository;
+package by.epam.spring.database.repository;
 
 import java.util.Optional;
 

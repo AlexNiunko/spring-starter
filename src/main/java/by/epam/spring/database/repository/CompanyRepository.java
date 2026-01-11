@@ -1,9 +1,10 @@
-package by.epam.spring.repository;
+package by.epam.spring.database.repository;
 
 import by.epam.spring.bpp.Auditing;
 import by.epam.spring.bpp.Transaction;
-import by.epam.spring.entity.Company;
-import by.epam.spring.pool.ConnectionPool;
+import by.epam.spring.database.entity.Company;
+import by.epam.spring.database.pool.ConnectionPool;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -14,21 +15,15 @@ import java.util.Optional;
 @Component
 @Transaction
 @Auditing
+@RequiredArgsConstructor
 public class CompanyRepository implements CrudRepository<Integer, Company> {
 
+    @Value("${db.pool.size}")
     private final Integer poolSize;
 
     private final ConnectionPool pool1;
 
     private List<ConnectionPool> poolList;
-
-    public CompanyRepository(@Value("${db.pool.size}") Integer poolSize,
-                             ConnectionPool pool1,
-                             List<ConnectionPool> poolList) {
-        this.poolSize = poolSize;
-        this.pool1 = pool1;
-        this.poolList = poolList;
-    }
 
     @PostConstruct
     private void init() {
@@ -45,6 +40,5 @@ public class CompanyRepository implements CrudRepository<Integer, Company> {
     public void delete(Company entity) {
         System.out.println("delete method ... ");
     }
-
 
 }

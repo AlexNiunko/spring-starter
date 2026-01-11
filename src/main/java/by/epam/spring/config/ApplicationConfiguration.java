@@ -1,8 +1,8 @@
 package by.epam.spring.config;
 
-import by.epam.spring.pool.ConnectionPool;
-import by.epam.spring.repository.CrudRepository;
-import by.epam.spring.repository.UserRepository;
+import by.epam.spring.database.pool.ConnectionPool;
+import by.epam.spring.database.repository.CrudRepository;
+import by.epam.spring.database.repository.UserRepository;
 import by.epam.web.config.WebConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
