@@ -18,4 +18,8 @@ db:
      timeout: 2
    - size: 3
      timeout: 3
+logging:
+  level:
+    root: warn
+    by.epam.spring.database.pool.ConnectionPool: info
 #spring.profiles.active:qa
