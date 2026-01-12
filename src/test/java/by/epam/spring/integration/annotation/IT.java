@@ -1,5 +1,6 @@
-package by.epam.spring.service.integration.service.annotation;
+package by.epam.spring.integration.annotation;
 
+import by.epam.spring.integration.TestApplicationRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -11,6 +12,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @ActiveProfiles("test")
-@SpringBootTest
+@SpringBootTest(classes = TestApplicationRunner.class)
 public @interface IT {
 }
