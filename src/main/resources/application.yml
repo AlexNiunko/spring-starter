@@ -25,4 +25,15 @@ logging:
   level:
     root: info
     by.epam.spring.database.pool.ConnectionPool: info
+spring:
+  datasource:
+    username: user
+    url: jdbc:postgresql://localhost:5432/test
+    password: user
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+      show-sql: true
 #spring.profiles.active:qa

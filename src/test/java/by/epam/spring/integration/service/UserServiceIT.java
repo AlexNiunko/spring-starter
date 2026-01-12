@@ -5,7 +5,6 @@ import by.epam.spring.integration.annotation.IT;
 import by.epam.spring.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.annotation.DirtiesContext;
 
 @IT
