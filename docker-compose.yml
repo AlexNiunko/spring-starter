@@ -3,7 +3,7 @@ version: '3.8'
 services:
   postgres:
     image: postgres:16.3
-    container_name: dm_dev_hibernate
+    container_name: spring-starter
     restart: unless-stopped
     environment:
       POSTGRES_USER: user
