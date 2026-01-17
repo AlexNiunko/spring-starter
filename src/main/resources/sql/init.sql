@@ -39,7 +39,7 @@ create table if not exists public.payment
 
 create table if not exists public.users_chats
 (
-    id bigint primary key ,
+    id bigserial primary key ,
     user_id bigint references users(id),
     chat_id bigint references chat(id)
 )
