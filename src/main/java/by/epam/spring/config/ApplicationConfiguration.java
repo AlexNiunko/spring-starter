@@ -27,20 +27,6 @@ public class ApplicationConfiguration {
         return new ConnectionPool("test-pool", 20);
     }
 
-    @Bean
-    public UserRepository userRepository(ConnectionPool pool2) {
-        return new UserRepository(pool2);
-    }
-
-    @Bean
-    @Profile("prod|web")
-    //! & |
-    public UserRepository userRepository2() {
-        var pool1 = pool3();
-        var pool2 = pool3();
-        var pool3 = pool3();
-        return new UserRepository(pool3());
-    }
 
 
 }
