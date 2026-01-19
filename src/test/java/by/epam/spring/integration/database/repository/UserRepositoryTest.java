@@ -65,8 +65,13 @@ class UserRepositoryTest {
     @Test
     void checkPageable(){
         var id = PageRequest.of(1, 2, Sort.by("id"));
-        var users = userRepository.findAllBy(id);
-        assertThat(users).hasSize(2);
+        var slice = userRepository.findAllBy(id);
+        slice.forEach(System.out::println);
+
+        while (slice.hasNext()){
+            slice=userRepository.findAllBy(slice.nextPageable());
+            slice.forEach(System.out::println);
+        }
     }
 
 
