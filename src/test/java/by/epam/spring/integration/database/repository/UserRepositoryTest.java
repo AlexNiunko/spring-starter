@@ -3,6 +3,7 @@ package by.epam.spring.integration.database.repository;
 import by.epam.spring.database.entity.Role;
 import by.epam.spring.database.entity.User;
 import by.epam.spring.database.repository.UserRepository;
+import by.epam.spring.dto.PersonalInfo;
 import by.epam.spring.integration.annotation.IT;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -72,6 +73,13 @@ class UserRepositoryTest {
             slice=userRepository.findAllBy(slice.nextPageable());
             slice.forEach(user-> System.out.println(user.getCompany().getName()));
         }
+    }
+
+    @Test
+    void checkProjections(){
+        var users = userRepository.findAllByCompanyId(1);
+       users.forEach(System.out::println);
+
     }
 
 

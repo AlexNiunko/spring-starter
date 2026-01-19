@@ -2,10 +2,12 @@ package by.epam.spring.database.repository;
 
 import by.epam.spring.database.entity.Role;
 import by.epam.spring.database.entity.User;
+import by.epam.spring.dto.PersonalInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.LockModeType;
@@ -50,5 +52,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "select u from User u",
             countQuery = "select count(distinct u.firstname) from User u")
     Page<User> findAllBy(Pageable pageable);
+
+    List<PersonalInfo>findAllByCompanyId(Integer companyId);
 
 }
