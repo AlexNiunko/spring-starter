@@ -7,6 +7,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedEntityGraph(name = "User.company",
+        attributeNodes = @NamedAttributeNode("company")
+)
 @Getter
 @Setter
 @Entity
@@ -38,6 +41,6 @@ public class User implements BaseEntity<Long> {
     private Company company;
 
     @Builder.Default
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<UserChat> userChatList = new ArrayList<>();
 }
