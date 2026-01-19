@@ -2,12 +2,16 @@ package by.epam.spring.database.repository;
 
 import by.epam.spring.database.entity.Role;
 import by.epam.spring.database.entity.User;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -32,5 +36,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
             """)
     int updateRole(Role role, Long... ids);
 
+    Optional<User> findTopByOrderByIdDesc();
+
+    List<User>findTop3ByBirthDateBeforeOrderByBirthDateDesc(LocalDate birthDate);
+
+    List<User>findTop3ByBirthDateBefore(LocalDate birthDate, Sort sort);
+
+    List<User> findAllBy(Pageable pageable);
 
 }

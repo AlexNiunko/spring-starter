@@ -1,10 +1,13 @@
 package by.epam.spring.integration.database.repository;
 
 import by.epam.spring.database.entity.Company;
+import by.epam.spring.database.entity.User;
 import by.epam.spring.database.repository.CompanyRepository;
+import by.epam.spring.database.repository.UserRepository;
 import by.epam.spring.integration.annotation.IT;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.persistence.EntityManager;
@@ -12,8 +15,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @IT
 //@Commit // или @Commit если
@@ -24,6 +26,8 @@ class CompanyRepositoryTest {
     private final EntityManager entityManager;
     private final TransactionTemplate transactionTemplate;
     private final CompanyRepository companyRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Test
     void checkFindByQueries(){
@@ -65,5 +69,7 @@ class CompanyRepositoryTest {
 
 
     }
+
+
 
 }
