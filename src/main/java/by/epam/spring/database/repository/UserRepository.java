@@ -1,7 +1,9 @@
 package by.epam.spring.database.repository;
 
+import by.epam.spring.database.entity.Role;
 import by.epam.spring.database.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +23,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = """
             SELECT u.* FROM users u
             WHERE u.username=:username
-            """,nativeQuery = true)
+            """, nativeQuery = true)
     List<User> findAllByUserName(String username);
+
+    @Modifying(clearAutomatically = true,flushAutomatically = false)
+    @Query("""
+            update User u set u.role=:role where u.id in (:ids)
+            """)
+    int updateRole(Role role, Long... ids);
+
 
 }
