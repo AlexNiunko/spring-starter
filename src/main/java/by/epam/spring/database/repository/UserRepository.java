@@ -4,14 +4,12 @@ import by.epam.spring.database.entity.Role;
 import by.epam.spring.database.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.LockModeType;
+import javax.persistence.QueryHint;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +31,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             """, nativeQuery = true)
     List<User> findAllByUserName(String username);
 
-    @Modifying(clearAutomatically = true,flushAutomatically = false)
+    @Modifying(clearAutomatically = true, flushAutomatically = false)
     @Query("""
             update User u set u.role=:role where u.id in (:ids)
             """)
@@ -41,14 +39,16 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findTopByOrderByIdDesc();
 
-    List<User>findTop3ByBirthDateBeforeOrderByBirthDateDesc(LocalDate birthDate);
+    List<User> findTop3ByBirthDateBeforeOrderByBirthDateDesc(LocalDate birthDate);
 
-    List<User>findTop3ByBirthDateBefore(LocalDate birthDate, Sort sort);
+    @QueryHints(@QueryHint(name = "org.hibernate.fetchSize", value = "50"))
+    @Lock(LockModeType.PESSIMISTIC_READ)
+    List<User> findTop3ByBirthDateBefore(LocalDate birthDate, Sort sort);
 
-//    @EntityGraph("User.company")
-    @EntityGraph(attributePaths = {"company","company.locales"})
+    //    @EntityGraph("User.company")
+    @EntityGraph(attributePaths = {"company", "company.locales"})
     @Query(value = "select u from User u",
-    countQuery = "select count(distinct u.firstname) from User u")
+            countQuery = "select count(distinct u.firstname) from User u")
     Page<User> findAllBy(Pageable pageable);
 
 }
