@@ -1,7 +1,7 @@
 package by.epam.spring.service;
 
 import by.epam.spring.database.entity.Company;
-import by.epam.spring.database.repository.CrudRepository;
+import by.epam.spring.database.repository.CompanyRepository;
 import by.epam.spring.dto.CompanyReadDto;
 import by.epam.spring.listener.entity.EntityEvent;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ class CompanyServiceTest {
     public static final Integer COMPANY_ID = 1;
 
     @Mock
-    private CrudRepository<Integer, Company> companyRepository;
+    private CompanyRepository companyRepository;
 
     @Mock
     private UserService userService;

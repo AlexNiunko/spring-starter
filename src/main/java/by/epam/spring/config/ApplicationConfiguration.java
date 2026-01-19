@@ -1,7 +1,6 @@
 package by.epam.spring.config;
 
 import by.epam.spring.database.pool.ConnectionPool;
-import by.epam.spring.database.repository.CrudRepository;
 import by.epam.spring.database.repository.UserRepository;
 import by.epam.web.config.WebConfiguration;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Component;
         useDefaultFilters = false,
         includeFilters = {
                 @Filter(type = FilterType.ANNOTATION, value = Component.class),
-                @Filter(type = FilterType.ASSIGNABLE_TYPE, value = CrudRepository.class),
                 @Filter(type = FilterType.REGEX, pattern = "by\\..+Repository")
         })
 public class ApplicationConfiguration {

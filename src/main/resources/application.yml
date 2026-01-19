@@ -37,5 +37,6 @@ spring:
         format_sql: true
         hbm2ddl:
           auto: validate
+        show_sql: true
       show-sql: true
 #spring.profiles.active:qa
