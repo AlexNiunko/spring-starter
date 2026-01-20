@@ -37,7 +37,7 @@ spring:
       hibernate:
         format_sql: true
         hbm2ddl:
-          auto: update
+          auto: validate
         show_sql: true
       fetch_size: 50
       batch_size: 50
