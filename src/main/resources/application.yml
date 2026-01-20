@@ -39,5 +39,7 @@ spring:
         hbm2ddl:
           auto: update
         show_sql: true
+      fetch_size: 50
+      batch_size: 50
       show-sql: true
 #spring.profiles.active:qa

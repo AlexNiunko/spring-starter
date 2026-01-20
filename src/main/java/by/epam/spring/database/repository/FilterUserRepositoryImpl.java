@@ -4,25 +4,23 @@ import by.epam.spring.database.entity.Role;
 import by.epam.spring.database.entity.User;
 import by.epam.spring.database.querydsl.QPredicates;
 import by.epam.spring.dto.PersonInfo;
-import by.epam.spring.dto.PersonalInfo;
 import by.epam.spring.dto.UserFilter;
 import com.querydsl.jpa.impl.JPAQuery;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
+import java.util.Map;
 import java.util.List;
 
 import static by.epam.spring.database.entity.QUser.user;
 
 @RequiredArgsConstructor
-public class FilterUserRepositoryImpl implements FilterUserRepository{
+public class FilterUserRepositoryImpl implements FilterUserRepository {
 
-    private static final String FIND_BY_COMPANY_AND_ROLE= """
+    private static final String FIND_BY_COMPANY_AND_ROLE = """
             SELECT
             firstname,
             lastname,
@@ -32,10 +30,24 @@ public class FilterUserRepositoryImpl implements FilterUserRepository{
             AND role=?
             """;
 
+    private static final String UPDATE_COMPANY_AND_ROLE = """
+            UPDATE users
+            SET company_id=?,
+                role=?
+            WHERE id=?
+            """;
+
+    private static final String UPDATE_COMPANY_AND_ROLE_NAMED = """
+            UPDATE users
+            SET company_id=:companyId,
+                role=:role
+            WHERE id=:id
+            """;
+
 
     private final EntityManager entityManager;
     private final JdbcTemplate jdbcTemplate;
-
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 
     @Override
@@ -60,6 +72,26 @@ public class FilterUserRepositoryImpl implements FilterUserRepository{
                         rs.getString("firstname"),
                         rs.getString("lastname"),
                         rs.getDate("birth_date").toLocalDate()
-                ),companyId,role.name());
+                ), companyId, role.name());
+    }
+
+    @Override
+    public void updateCompanyAndRole(List<User> users) {
+        var array = users.stream()
+                .map(user -> new Object[]{user.getCompany().getId(), user.getRole().name(), user.getId()}).toList();
+        jdbcTemplate.batchUpdate(UPDATE_COMPANY_AND_ROLE, array);
+    }
+
+    @Override
+    public void updateCompanyAndRoleNamed(List<User> users) {
+        var array = users.stream()
+                .map(user -> Map.of(
+                        "companyId", user.getCompany().getId(),
+                        "role", user.getRole(),
+                        "id", user.getId()
+                )).map(MapSqlParameterSource::new)
+                .toArray(MapSqlParameterSource[]::new);
+        namedParameterJdbcTemplate.batchUpdate(UPDATE_COMPANY_AND_ROLE_NAMED,array);
+
     }
 }

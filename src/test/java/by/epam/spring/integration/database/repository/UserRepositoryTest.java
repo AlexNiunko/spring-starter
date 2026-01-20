@@ -119,8 +119,12 @@ class UserRepositoryTest {
     void jdbcTemplate(){
         var allByCompanyIdAndRole = userRepository.findAllByCompanyIdAndRole(1, Role.USER);
         assertThat(allByCompanyIdAndRole).hasSize(1);
+    }
 
-
+    @Test
+    void checkBatch(){
+        var all = userRepository.findAll();
+        userRepository.updateCompanyAndRole(all);
     }
 
 
