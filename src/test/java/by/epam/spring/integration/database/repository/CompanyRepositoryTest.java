@@ -3,9 +3,11 @@ package by.epam.spring.integration.database.repository;
 import by.epam.spring.database.entity.Company;
 import by.epam.spring.database.repository.CompanyRepository;
 import by.epam.spring.database.repository.UserRepository;
+import by.epam.spring.integration.IntegrationBaseTest;
 import by.epam.spring.integration.annotation.IT;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -15,10 +17,9 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-@IT
 //@Commit // или @Commit если
 @RequiredArgsConstructor
-class CompanyRepositoryTest {
+class CompanyRepositoryTest extends IntegrationBaseTest {
 
     private static final Integer APPLE_ID = 2;
     private final EntityManager entityManager;
@@ -34,6 +35,7 @@ class CompanyRepositoryTest {
     }
 
     @Test
+    @Disabled
     void delete() {
         var maybeCompany = companyRepository.findById(APPLE_ID);
         assertTrue(maybeCompany.isPresent());

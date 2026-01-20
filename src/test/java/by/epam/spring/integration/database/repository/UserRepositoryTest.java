@@ -3,9 +3,8 @@ package by.epam.spring.integration.database.repository;
 import by.epam.spring.database.entity.Role;
 import by.epam.spring.database.entity.User;
 import by.epam.spring.database.repository.UserRepository;
-import by.epam.spring.dto.PersonInfo;
 import by.epam.spring.dto.UserFilter;
-import by.epam.spring.integration.annotation.IT;
+import by.epam.spring.integration.IntegrationBaseTest;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.envers.AuditReaderFactory;
@@ -14,18 +13,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Commit;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-@IT
-@Sql(scripts = {"classpath:sql/data.sql"})
 @RequiredArgsConstructor
-class UserRepositoryTest {
+class UserRepositoryTest extends IntegrationBaseTest {
 
     private final UserRepository userRepository;
     private final EntityManager entityManager;
@@ -97,7 +92,6 @@ class UserRepositoryTest {
     }
 
     @Test
-    @Commit
     void checkAuditing() {
         var ivan = userRepository.findById(1L).get();
         var auditReader = AuditReaderFactory.get(entityManager);
@@ -118,13 +112,13 @@ class UserRepositoryTest {
     }
 
     @Test
-    void jdbcTemplate(){
+    void jdbcTemplate() {
         var allByCompanyIdAndRole = userRepository.findAllByCompanyIdAndRole(1, Role.USER);
         assertThat(allByCompanyIdAndRole).hasSize(1);
     }
 
     @Test
-    void checkBatch(){
+    void checkBatch() {
         var all = userRepository.findAll();
         userRepository.updateCompanyAndRole(all);
     }
