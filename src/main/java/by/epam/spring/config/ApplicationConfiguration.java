@@ -1,11 +1,13 @@
 package by.epam.spring.config;
 
 import by.epam.spring.database.pool.ConnectionPool;
-import by.epam.spring.database.repository.UserRepository;
 import by.epam.web.config.WebConfiguration;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
 
 @Import(WebConfiguration.class)

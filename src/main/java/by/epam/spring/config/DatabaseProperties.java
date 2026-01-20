@@ -1,13 +1,10 @@
 package by.epam.spring.config;
 
-import lombok.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.ConstructorBinding;
 
 import java.util.List;
 import java.util.Map;
 
-@ConstructorBinding
 @ConfigurationProperties(prefix = "db")
 public record DatabaseProperties(
         String username,

@@ -1,11 +1,11 @@
 package by.epam.spring.database.entity;
 
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.envers.RevisionEntity;
 import org.hibernate.envers.RevisionNumber;
 import org.hibernate.envers.RevisionTimestamp;
 
-import javax.persistence.*;
 
 @Data
 @Setter

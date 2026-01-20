@@ -5,6 +5,7 @@ import by.epam.spring.database.entity.User;
 import by.epam.spring.database.repository.UserRepository;
 import by.epam.spring.dto.UserFilter;
 import by.epam.spring.integration.annotation.IT;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.envers.AuditReaderFactory;
 import org.hibernate.envers.query.AuditEntity;
@@ -13,7 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Commit;
 
-import javax.persistence.EntityManager;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -87,7 +87,7 @@ class UserRepositoryTest {
 
     @Test
     void checkCustomImplementation() {
-        var allByFilter = userRepository.findAllByFilter(new UserFilter(null, "%o%", LocalDate.now()));
+        var allByFilter = userRepository.findAllByFilter(new UserFilter(null, "r", LocalDate.now()));
         assertThat(allByFilter).hasSize(2);
 
     }
@@ -104,6 +104,9 @@ class UserRepositoryTest {
                 .getResultList();
 
         System.out.println(resultList.size());
+
+        var revisions = userRepository.findRevisions(1L);
+        System.out.println(revisions);
 
         ivan.setBirthDate(ivan.getBirthDate().plusYears(1L));
         userRepository.flush();

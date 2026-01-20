@@ -1,13 +1,19 @@
 package by.epam.spring.database.repository;
 
+import by.epam.spring.database.entity.QUser;
 import by.epam.spring.database.entity.User;
+import by.epam.spring.database.querydsl.QPredicates;
 import by.epam.spring.dto.UserFilter;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.jpa.impl.JPAQuery;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.Predicate;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static by.epam.spring.database.entity.QUser.user;
 
 @RequiredArgsConstructor
 public class FilterUserRepositoryImpl implements FilterUserRepository{
@@ -16,22 +22,16 @@ public class FilterUserRepositoryImpl implements FilterUserRepository{
 
     @Override
     public List<User> findAllByFilter(UserFilter filter) {
-        var cb = entityManager.getCriteriaBuilder();
-        var criteria = cb.createQuery(User.class);
-        var root = criteria.from(User.class);
-        criteria.select(root);
-        List<Predicate> predicates=new ArrayList<>();
-        if (filter.firstname()!=null){
-            predicates.add(cb.like(root.get("firstname"),filter.firstname()));
-        }
-        if (filter.lastname()!=null){
-            predicates.add(cb.like(root.get("lastname"),filter.lastname()));
-        }
-        if (filter.birthDate()!=null){
-            predicates.add(cb.lessThan(root.get("birthDate"),filter.birthDate()));
-        }
-        criteria.where(predicates.toArray(Predicate[]::new));
+        var build = QPredicates.builder()
+                .add(filter.firstname(), user.firstname::containsIgnoreCase)
+                .add(filter.lastname(), user.lastname::containsIgnoreCase)
+                .add(filter.birthDate(), user.birthDate::before)
+                .build();
+        return new JPAQuery<User>(entityManager)
+                .select(user)
+                .from(user)
+                .where(build)
+                .fetch();
 
-        return entityManager.createQuery(criteria).getResultList();
     }
 }

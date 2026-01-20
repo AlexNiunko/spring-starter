@@ -3,15 +3,17 @@ package by.epam.spring.database.repository;
 import by.epam.spring.database.entity.Role;
 import by.epam.spring.database.entity.User;
 import by.epam.spring.dto.PersonalInfo;
+import jakarta.persistence.LockModeType;
+import jakarta.persistence.QueryHint;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.history.RevisionRepository;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.LockModeType;
-import javax.persistence.QueryHint;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +22,9 @@ import java.util.Optional;
 public interface UserRepository extends
         JpaRepository<User, Long>,
         FilterUserRepository,
-        RevisionRepository<User,Long,Integer> {
+        RevisionRepository<User,Long,Integer>,
+        QuerydslPredicateExecutor<User>
+{
 
     @Query("""
             select u from User u
