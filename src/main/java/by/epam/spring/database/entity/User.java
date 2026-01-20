@@ -1,6 +1,9 @@
 package by.epam.spring.database.entity;
 
 import lombok.*;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,11 +15,12 @@ import java.util.List;
 )
 @Getter
 @Setter
-@Entity
+@Entity(name = "User")
 @Builder
 @Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
+@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 public class User extends AuditingEntity<Long> {
 
     @Id
@@ -40,6 +44,7 @@ public class User extends AuditingEntity<Long> {
     @JoinColumn(name = "company_id")
     private Company company;
 
+    @NotAudited
     @Builder.Default
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<UserChat> userChatList = new ArrayList<>();

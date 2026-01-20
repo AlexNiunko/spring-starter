@@ -13,7 +13,7 @@ create table if not exists public.company_locale
     primary key (company_id, lang)
 );
 
-create table if not exists public.users
+create table if not exists public.user
 (
     id         bigserial primary key,
     username   varchar(255) not null unique ,
@@ -34,12 +34,12 @@ create table if not exists public.payment
 (
     id bigserial primary key,
     amount      integer not null,
-    receiver_id bigint references users(id)
+    receiver_id bigint references user(id)
 );
 
 create table if not exists public.users_chats
 (
     id bigserial primary key ,
-    user_id bigint references users(id),
+    user_id bigint references user(id),
     chat_id bigint references chat(id)
 )

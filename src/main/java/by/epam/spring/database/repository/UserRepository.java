@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.*;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.repository.history.RevisionRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.LockModeType;
@@ -17,7 +17,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long>,FilterUserRepository {
+public interface UserRepository extends
+        JpaRepository<User, Long>,
+        FilterUserRepository,
+        RevisionRepository<User,Long,Integer> {
 
     @Query("""
             select u from User u
@@ -28,7 +31,7 @@ public interface UserRepository extends JpaRepository<User, Long>,FilterUserRepo
 
 
     @Query(value = """
-            SELECT u.* FROM users u
+            SELECT u.* FROM user u
             WHERE u.username=:username
             """, nativeQuery = true)
     List<User> findAllByUserName(String username);
@@ -53,6 +56,6 @@ public interface UserRepository extends JpaRepository<User, Long>,FilterUserRepo
             countQuery = "select count(distinct u.firstname) from User u")
     Page<User> findAllBy(Pageable pageable);
 
-    List<PersonalInfo>findAllByCompanyId(Integer companyId);
+    List<PersonalInfo> findAllByCompanyId(Integer companyId);
 
 }

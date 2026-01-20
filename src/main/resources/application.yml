@@ -36,7 +36,7 @@ spring:
       hibernate:
         format_sql: true
         hbm2ddl:
-          auto: validate
+          auto: update
         show_sql: true
       show-sql: true
 #spring.profiles.active:qa

@@ -10,7 +10,7 @@ VALUES (1, 'en', 'Leading software and cloud computing company'),
        (2, 'fr', 'Entreprise leader en logiciels et informatique cloud'),
        (3, 'es', 'Empresa líder en software y computación en la nube');
 
-INSERT INTO public.users (birth_date, firstname, lastname, role, username, company_id)
+INSERT INTO public.user (birth_date, firstname, lastname, role, username, company_id)
 VALUES ('1955-10-28', 'Bill', 'Gates', 'USER', 'bill@mail.ru', 1),
        ('1955-02-24', 'Steve', 'Jobs', 'USER', 'jobs@gmai.com', 2),
        ('1973-08-21', 'Sergey', 'Brin', 'USER', 'brin@tut.by', 3),
