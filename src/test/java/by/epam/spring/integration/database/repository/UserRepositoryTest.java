@@ -3,6 +3,7 @@ package by.epam.spring.integration.database.repository;
 import by.epam.spring.database.entity.Role;
 import by.epam.spring.database.entity.User;
 import by.epam.spring.database.repository.UserRepository;
+import by.epam.spring.dto.PersonInfo;
 import by.epam.spring.dto.UserFilter;
 import by.epam.spring.integration.annotation.IT;
 import jakarta.persistence.EntityManager;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Commit;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -111,6 +113,14 @@ class UserRepositoryTest {
         ivan.setBirthDate(ivan.getBirthDate().plusYears(1L));
         userRepository.flush();
         System.out.println();
+    }
+
+    @Test
+    void jdbcTemplate(){
+        var allByCompanyIdAndRole = userRepository.findAllByCompanyIdAndRole(1, Role.USER);
+        assertThat(allByCompanyIdAndRole).hasSize(1);
+
+
     }
 
 

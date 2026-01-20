@@ -2,7 +2,7 @@ package by.epam.spring.database.repository;
 
 import by.epam.spring.database.entity.Role;
 import by.epam.spring.database.entity.User;
-import by.epam.spring.dto.PersonalInfo;
+import by.epam.spring.dto.PersonInfo;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.QueryHint;
 import org.springframework.data.domain.Page;
@@ -13,7 +13,6 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.history.RevisionRepository;
 import org.springframework.stereotype.Repository;
 
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -22,9 +21,8 @@ import java.util.Optional;
 public interface UserRepository extends
         JpaRepository<User, Long>,
         FilterUserRepository,
-        RevisionRepository<User,Long,Integer>,
-        QuerydslPredicateExecutor<User>
-{
+        RevisionRepository<User, Long, Integer>,
+        QuerydslPredicateExecutor<User> {
 
     @Query("""
             select u from User u
@@ -60,6 +58,6 @@ public interface UserRepository extends
             countQuery = "select count(distinct u.firstname) from User u")
     Page<User> findAllBy(Pageable pageable);
 
-    List<PersonalInfo> findAllByCompanyId(Integer companyId);
+    List<PersonInfo> findAllByCompanyId(Integer companyId);
 
 }

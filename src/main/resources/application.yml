@@ -25,6 +25,7 @@ logging:
   level:
     root: info
     by.epam.spring.database.pool.ConnectionPool: info
+    org.springframework.jdbc.core: trace
 spring:
   datasource:
     username: user
