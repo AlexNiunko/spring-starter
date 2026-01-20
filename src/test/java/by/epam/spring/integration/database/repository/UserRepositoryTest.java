@@ -4,6 +4,7 @@ import by.epam.spring.database.entity.Role;
 import by.epam.spring.database.entity.User;
 import by.epam.spring.database.repository.UserRepository;
 import by.epam.spring.dto.PersonalInfo;
+import by.epam.spring.dto.UserFilter;
 import by.epam.spring.integration.annotation.IT;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -79,6 +80,13 @@ class UserRepositoryTest {
     void checkProjections(){
         var users = userRepository.findAllByCompanyId(1);
        users.forEach(System.out::println);
+
+    }
+
+    @Test
+    void checkCustomImplementation(){
+        var allByFilter = userRepository.findAllByFilter(new UserFilter(null, "%o%", LocalDate.now()));
+        assertThat(allByFilter).hasSize(2);
 
     }
 
