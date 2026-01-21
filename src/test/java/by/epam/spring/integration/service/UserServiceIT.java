@@ -1,6 +1,7 @@
 package by.epam.spring.integration.service;
 
 import by.epam.spring.database.pool.ConnectionPool;
+import by.epam.spring.integration.IntegrationBaseTest;
 import by.epam.spring.integration.annotation.IT;
 import by.epam.spring.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +11,7 @@ import org.springframework.test.annotation.DirtiesContext;
 @IT
 @RequiredArgsConstructor
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class UserServiceIT {
+public class UserServiceIT extends IntegrationBaseTest {
 
     private final UserService userService;
 

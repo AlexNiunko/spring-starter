@@ -34,17 +34,15 @@ class UserRepositoryTest extends IntegrationBaseTest {
     @Test
     void checkUpdate() {
         var ivan = userRepository.getById(1L);
-        assertSame(Role.ADMIN, ivan.getRole());
+        assertSame(Role.USER, ivan.getRole());
 
         ivan.setFirstname("Cucaracha");
 
-        var resultCount = userRepository.updateRole(Role.USER, 1L, 2L);
+        var resultCount = userRepository.updateRole(Role.ADMIN, 1L, 2L);
         assertEquals(2, resultCount);
 
-        var companyName = ivan.getCompany().getName();
-
         var theSameIvan = userRepository.getById(1L);
-        assertSame(Role.USER, theSameIvan.getRole());
+        assertSame(Role.ADMIN, theSameIvan.getRole());
     }
 
     @Test

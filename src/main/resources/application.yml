@@ -27,10 +27,15 @@ logging:
     by.epam.spring.database.pool.ConnectionPool: info
     org.springframework.jdbc.core: trace
 spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp
+      suffix: .jsp
+
   datasource:
     username: user
-    url: jdbc:postgresql://localhost:5432/test
     password: user
+    url: jdbc:postgresql://localhost:5432/test
     driver-class-name: org.postgresql.Driver
   jpa:
     properties:

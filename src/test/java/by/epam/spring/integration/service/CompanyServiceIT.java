@@ -1,5 +1,6 @@
 package by.epam.spring.integration.service;
 
+import by.epam.spring.integration.IntegrationBaseTest;
 import by.epam.spring.service.CompanyService;
 import by.epam.spring.config.DatabaseProperties;
 import by.epam.spring.dto.CompanyReadDto;
@@ -18,7 +19,7 @@ import static org.mockito.Mockito.verify;
 //@ExtendWith(SpringExtension.class)
 //@ContextConfiguration(classes = ApplicationRunner.class,
 //initializers = ConfigDataApplicationContextInitializer.class)
-public class CompanyServiceIT {
+public class CompanyServiceIT extends IntegrationBaseTest {
 
     public static final Integer COMPANY_ID = 1;
 
