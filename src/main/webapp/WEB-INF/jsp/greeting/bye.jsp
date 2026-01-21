@@ -5,6 +5,6 @@
     <title>Bye</title>
 </head>
 <body>
-Bye baby!!
+Bye ${sessionScope.user.username} ${sessionScope.user.id}!!
 </body>
 </html>
