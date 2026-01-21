@@ -43,7 +43,7 @@ class CompanyServiceTest {
                 .when(companyRepository).findById(COMPANY_ID);
 
         var actualResult = companyService.findById(COMPANY_ID);
-        var expectedResult = new CompanyReadDto(COMPANY_ID);
+        var expectedResult = new CompanyReadDto(COMPANY_ID,null);
         actualResult.ifPresent(actual->assertEquals(expectedResult,actual));
 
         verify(applicationEventPublisher).publishEvent(any(EntityEvent.class));

@@ -12,7 +12,7 @@ create table if not exists public.company
 --changeset AlexNiunko:2
 create table if not exists public.company_locale
 (
-    company_id  integer references company,
+    company_id  integer references company (id) on delete cascade ,
     lang        varchar(255) not null,
     description varchar(255),
     primary key (company_id, lang)
@@ -28,6 +28,7 @@ create table if not exists public.users
     lastname   varchar(255),
     role       varchar(255),
     company_id integer references company(id)
+
 );
 
 --changeset AlexNiunko:4
@@ -42,13 +43,13 @@ create table if not exists public.payment
 (
     id bigserial primary key,
     amount      integer not null,
-    receiver_id bigint references users(id)
+    receiver_id bigint references users(id) on delete cascade
 );
 
 --changeset AlexNiunko:6
 create table if not exists public.users_chats
 (
     id bigserial primary key ,
-    user_id bigint references users(id),
-    chat_id bigint references chat(id)
+    user_id bigint references users(id) on delete cascade ,
+    chat_id bigint references chat(id) on delete cascade
 )
