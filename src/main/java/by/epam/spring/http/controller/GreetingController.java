@@ -1,12 +1,17 @@
 package by.epam.spring.http.controller;
 
+import by.epam.spring.database.entity.Role;
 import by.epam.spring.dto.UserReadDto;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 
+import java.util.Arrays;
+import java.util.List;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,20 +25,27 @@ import org.springframework.web.servlet.ModelAndView;
 @SessionAttributes({"user"})
 public class GreetingController {
 
+    @ModelAttribute("roles")
+    public List<Role> roles(){
+        return Arrays.asList(Role.values());
+    }
+
+
     @GetMapping("/hello")
-    public ModelAndView hello(ModelAndView modelAndView, HttpServletRequest request) {
+    public String hello(Model model,
+                        HttpServletRequest request,
+                        @ModelAttribute("userReadDto") UserReadDto userReadDto) {
 //        request.getSession().setAttribute();
 //        request.setAttribute(); requestScope
-        modelAndView.setViewName("greeting/hello");
-        modelAndView.addObject("user", new UserReadDto(1L, "Ivan"));
-        return modelAndView;
+        model.addAttribute("user", new UserReadDto(1L, "Ivan"));
+        return "greeting/hello";
     }
 
     @GetMapping("/bye")
-    public ModelAndView bye(@SessionAttribute("user") UserReadDto user) {
+    public String bye(@SessionAttribute("user") UserReadDto user) {
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.setViewName("greeting/bye");
-        return modelAndView;
+        return "greeting/bye";
     }
 
     @GetMapping("/hello/{id}")
