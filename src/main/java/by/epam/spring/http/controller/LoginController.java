@@ -1,6 +1,6 @@
 package by.epam.spring.http.controller;
 
-import by.epam.spring.http.controller.dto.LoginDto;
+import by.epam.spring.dto.LoginDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

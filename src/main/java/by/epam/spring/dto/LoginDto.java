@@ -1,4 +1,4 @@
-package by.epam.spring.http.controller.dto;
+package by.epam.spring.dto;
 
 import lombok.Value;
 
