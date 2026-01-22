@@ -47,4 +47,5 @@ spring:
       fetch_size: 50
       batch_size: 50
       show-sql: true
+    open-in-view: false
 #spring.profiles.active:qa
