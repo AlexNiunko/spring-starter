@@ -60,4 +60,5 @@ public interface UserRepository extends
 
     List<PersonInfo> findAllByCompanyId(Integer companyId);
 
+
 }

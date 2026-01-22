@@ -2,6 +2,8 @@ package by.epam.spring.database.querydsl;
 
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.Expressions;
+import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -26,10 +28,12 @@ public class QPredicates {
     }
 
     public Predicate build(){
-        return ExpressionUtils.allOf(predicates);
+        return Optional.ofNullable(ExpressionUtils.allOf(predicates))
+                .orElseGet(()-> Expressions.asBoolean(true).isTrue());
     }
 
     public Predicate buildOr(){
-        return ExpressionUtils.anyOf(predicates);
+        return Optional.ofNullable(ExpressionUtils.anyOf(predicates))
+                .orElseGet(()->Expressions.asBoolean(true).isTrue());
     }
 }

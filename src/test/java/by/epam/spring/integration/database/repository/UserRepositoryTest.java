@@ -25,6 +25,8 @@ class UserRepositoryTest extends IntegrationBaseTest {
     private final UserRepository userRepository;
     private final EntityManager entityManager;
 
+
+
     @Test
     void checkQueries() {
         var users = userRepository.findAllBy("i", "a");

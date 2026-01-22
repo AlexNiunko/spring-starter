@@ -1,11 +1,15 @@
 package by.epam.spring.http.controller;
 
 import by.epam.spring.database.entity.Role;
+import by.epam.spring.dto.PageResponse;
 import by.epam.spring.dto.UserCreateEditDto;
 import by.epam.spring.dto.UserFilter;
+import by.epam.spring.dto.UserReadDto;
 import by.epam.spring.service.CompanyService;
 import by.epam.spring.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,9 +33,11 @@ public class UserController {
     private final CompanyService companyService;
 
     @GetMapping
-    public String findAll(Model model, UserFilter filter) {
-//        model.addAttribute("users", userService.findAll());
-        model.addAttribute("users",userService.findAll(filter));
+    public String findAll(Model model, UserFilter filter, Pageable pageable) {
+        var page = userService.findAll(filter, pageable);
+        var pageResponse = PageResponse.of(page);
+        model.addAttribute("users", pageResponse);
+        model.addAttribute("filter", filter);
         return "user/users";
     }
 

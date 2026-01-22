@@ -1,5 +1,6 @@
 package by.epam.spring.service;
 
+import by.epam.spring.database.querydsl.QPredicates;
 import by.epam.spring.database.repository.UserRepository;
 import by.epam.spring.dto.UserCreateEditDto;
 import by.epam.spring.dto.UserFilter;
@@ -9,8 +10,12 @@ import by.epam.spring.mapper.UserReadMapper;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static by.epam.spring.database.entity.QUser.user;
 
 @Service
 @Transactional(readOnly = true)
@@ -20,6 +25,19 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserReadMapper userReadMapper;
     private final UserCreateEditMapper userCreateEditMapper;
+
+    public Page<UserReadDto> findAll(UserFilter filter, Pageable pageable) {
+
+        var predicate = QPredicates.builder()
+                .add(filter.firstname(), user.firstname::containsIgnoreCase)
+                .add(filter.lastname(), user.lastname::containsIgnoreCase)
+                .add(filter.birthDate(), user.birthDate::before)
+                .build();
+
+       return userRepository.findAll(predicate, pageable)
+               .map(userReadMapper::map);
+
+    }
 
     public List<UserReadDto> findAll() {
         return userRepository.findAll().stream()
@@ -33,13 +51,13 @@ public class UserService {
                 .toList();
     }
 
-    public Optional<UserReadDto>findById(Long id){
+    public Optional<UserReadDto> findById(Long id) {
         return userRepository.findById(id)
                 .map(userReadMapper::map);
     }
 
     @Transactional
-    public UserReadDto create(UserCreateEditDto userDto){
+    public UserReadDto create(UserCreateEditDto userDto) {
         return Optional.of(userDto)
                 .map(userCreateEditMapper::map)
                 .map(userRepository::save)
@@ -48,17 +66,17 @@ public class UserService {
     }
 
     @Transactional
-    public Optional<UserReadDto> update(Long id,UserCreateEditDto userDto){
+    public Optional<UserReadDto> update(Long id, UserCreateEditDto userDto) {
         return userRepository.findById(id)
-                .map(entity->userCreateEditMapper.map(userDto,entity))
+                .map(entity -> userCreateEditMapper.map(userDto, entity))
                 .map(userRepository::saveAndFlush)
                 .map(userReadMapper::map);
     }
 
     @Transactional
-    public boolean delete(Long id){
+    public boolean delete(Long id) {
         return userRepository.findById(id)
-                .map(entity->{
+                .map(entity -> {
                     userRepository.delete(entity);
                     userRepository.flush();
                     return true;
