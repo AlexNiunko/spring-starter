@@ -28,6 +28,9 @@ logging:
     org.springframework.jdbc.core: trace
 spring:
   mvc:
+    format:
+      date:
+
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
