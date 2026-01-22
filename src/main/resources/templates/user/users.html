@@ -5,10 +5,22 @@
     <title>Users</title>
 </head>
 <body>
+<form action="/users">
+    <label for="firstname">Firstname:
+    <input id="firstname" type="text" name="firstname">
+    </label>
+    <label for="lastname">Lastname:
+        <input id="lastname" type="text" name="lastname">
+    </label>
+    <label for="birthdate">BirthDate:
+        <input id="birthdate" type="date" name="birthdate">
+    </label>
+    <button type="submit">Filter</button>
+x
+</form>
+
  <div th:each="user :  ${users}">
      <a th:href="@{'/users/'+${user.id}}" th:text="|${user.id}. ${user.username}|">User</a>
-
-
  </div>
 </body>
 </html>

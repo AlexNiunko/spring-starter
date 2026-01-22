@@ -2,6 +2,7 @@ package by.epam.spring.service;
 
 import by.epam.spring.database.repository.UserRepository;
 import by.epam.spring.dto.UserCreateEditDto;
+import by.epam.spring.dto.UserFilter;
 import by.epam.spring.dto.UserReadDto;
 import by.epam.spring.mapper.UserCreateEditMapper;
 import by.epam.spring.mapper.UserReadMapper;
@@ -22,6 +23,12 @@ public class UserService {
 
     public List<UserReadDto> findAll() {
         return userRepository.findAll().stream()
+                .map(userReadMapper::map)
+                .toList();
+    }
+
+    public List<UserReadDto> findAll(UserFilter filter) {
+        return userRepository.findAllByFilter(filter).stream()
                 .map(userReadMapper::map)
                 .toList();
     }

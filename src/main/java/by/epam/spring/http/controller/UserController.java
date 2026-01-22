@@ -2,6 +2,7 @@ package by.epam.spring.http.controller;
 
 import by.epam.spring.database.entity.Role;
 import by.epam.spring.dto.UserCreateEditDto;
+import by.epam.spring.dto.UserFilter;
 import by.epam.spring.service.CompanyService;
 import by.epam.spring.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +29,9 @@ public class UserController {
     private final CompanyService companyService;
 
     @GetMapping
-    public String findAll(Model model) {
-        model.addAttribute("users", userService.findAll());
+    public String findAll(Model model, UserFilter filter) {
+//        model.addAttribute("users", userService.findAll());
+        model.addAttribute("users",userService.findAll(filter));
         return "user/users";
     }
 
