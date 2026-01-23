@@ -8,12 +8,16 @@ import by.epam.spring.dto.UserFilter;
 import by.epam.spring.dto.UserReadDto;
 import by.epam.spring.mapper.UserCreateEditMapper;
 import by.epam.spring.mapper.UserReadMapper;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -24,7 +28,7 @@ import static by.epam.spring.database.entity.QUser.user;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final UserReadMapper userReadMapper;
@@ -73,7 +77,7 @@ public class UserService {
                 .orElseThrow();
     }
 
-    public Optional<byte[]>findAvatar(Long id){
+    public Optional<byte[]> findAvatar(Long id) {
         return userRepository.findById(id)
                 .map(User::getImage)
                 .filter(StringUtils::hasText)
@@ -83,8 +87,8 @@ public class UserService {
 
     @SneakyThrows
     private void uploadImage(MultipartFile image) {
-        if (!image.isEmpty()){
-            imageService.upload(image.getOriginalFilename(),image.getInputStream());
+        if (!image.isEmpty()) {
+            imageService.upload(image.getOriginalFilename(), image.getInputStream());
         }
     }
 
@@ -107,5 +111,15 @@ public class UserService {
                     userRepository.flush();
                     return true;
                 }).orElse(false);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username)
+                .map(user -> new org.springframework.security.core.userdetails.User(
+                        user.getUsername(),
+                        user.getPassword(),
+                        Collections.singleton(user.getRole())
+                )).orElseThrow(() -> new UsernameNotFoundException("Failed to retrieve user " + username));
     }
 }

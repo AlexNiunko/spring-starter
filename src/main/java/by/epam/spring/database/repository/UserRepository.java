@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.history.RevisionRepository;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -61,4 +62,5 @@ public interface UserRepository extends
     List<PersonInfo> findAllByCompanyId(Integer companyId);
 
 
+    Optional<User> findByUsername(String username);
 }
