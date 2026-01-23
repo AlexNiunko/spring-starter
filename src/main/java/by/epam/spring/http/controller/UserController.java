@@ -43,8 +43,7 @@ public class UserController {
     private final CompanyService companyService;
 
 
-
-    @GetMapping
+    @GetMapping()
     public String findAll(Model model, UserFilter filter, Pageable pageable) {
         var page = userService.findAll(filter, pageable);
         var pageResponse = PageResponse.of(page);

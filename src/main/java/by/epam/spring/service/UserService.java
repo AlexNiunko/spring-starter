@@ -77,6 +77,7 @@ public class UserService implements UserDetailsService {
                 .orElseThrow();
     }
 
+    @Transactional
     public Optional<byte[]> findAvatar(Long id) {
         return userRepository.findById(id)
                 .map(User::getImage)
@@ -87,7 +88,7 @@ public class UserService implements UserDetailsService {
 
     @SneakyThrows
     private void uploadImage(MultipartFile image) {
-        if (!image.isEmpty()) {
+        if (image!=null && !image.isEmpty()) {
             imageService.upload(image.getOriginalFilename(), image.getInputStream());
         }
     }

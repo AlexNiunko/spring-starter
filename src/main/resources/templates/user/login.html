@@ -6,10 +6,13 @@
 </head>
 <body>
 <form action="/login" method="post">
-    <label for="username">Username
+    <div style="color: red" th:if="${param.error}">
+        Bad credentials
+    </div>
+    <label for="username">Username:
         <input id="username" for="username" type="text" name="username">
     </label><br>
-    <label for="password">Username
+    <label for="password">Password:
         <input id="password" for="password" type="password" name="password">
     </label><br>
     <button type="submit">Login</button>
