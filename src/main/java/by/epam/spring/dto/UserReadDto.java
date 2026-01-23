@@ -11,6 +11,7 @@ public class UserReadDto {
     String firstname;
     String lastname;
     LocalDate birthDate;
+    String image;
     Role role;
     CompanyReadDto company;
 }
