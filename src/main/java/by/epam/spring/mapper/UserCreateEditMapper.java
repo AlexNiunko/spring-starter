@@ -5,8 +5,10 @@ import by.epam.spring.database.entity.User;
 import by.epam.spring.database.repository.CompanyRepository;
 import by.epam.spring.dto.UserCreateEditDto;
 import java.util.Optional;
+import java.util.function.Predicate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 @Component
 @RequiredArgsConstructor
@@ -29,6 +31,9 @@ public class UserCreateEditMapper implements Mapper<UserCreateEditDto, User>{
         user.setLastname(object.getLastname());
         user.setRole(object.getRole());
         user.setCompany(getCompany(object.getCompanyId()));
+        Optional.ofNullable(object.getImage())
+                .filter(Predicate.not(MultipartFile::isEmpty))
+                .ifPresent(image->user.setImage(image.getOriginalFilename()));
     }
 
     private Company getCompany(Integer companyId ){
