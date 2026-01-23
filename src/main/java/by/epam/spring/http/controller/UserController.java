@@ -7,8 +7,13 @@ import by.epam.spring.dto.UserFilter;
 import by.epam.spring.dto.UserReadDto;
 import by.epam.spring.service.CompanyService;
 import by.epam.spring.service.UserService;
+import by.epam.spring.validation.group.CreateAction;
+import by.epam.spring.validation.group.UpdateAction;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import jakarta.validation.groups.Default;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -16,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +33,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import static by.epam.spring.database.entity.QUser.user;
 
+@Slf4j
 @Controller
 @RequestMapping("/users")
 @RequiredArgsConstructor
@@ -34,6 +41,8 @@ public class UserController {
 
     private final UserService userService;
     private final CompanyService companyService;
+
+
 
     @GetMapping
     public String findAll(Model model, UserFilter filter, Pageable pageable) {
@@ -65,7 +74,7 @@ public class UserController {
 
     @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)
-    public String create(@ModelAttribute @Validated UserCreateEditDto user,
+    public String create(@ModelAttribute @Validated({Default.class, CreateAction.class}) UserCreateEditDto user,
                          BindingResult bindingResult,
                          RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()){
@@ -78,7 +87,7 @@ public class UserController {
 
     //    @PutMapping("{id}")
     @PostMapping("{id}/update")
-    public String update(@PathVariable("id") Long id, @ModelAttribute @Validated UserCreateEditDto user) {
+    public String update(@PathVariable("id") Long id, @ModelAttribute @Validated({Default.class, UpdateAction.class}) UserCreateEditDto user) {
         return userService.update(id, user)
                 .map(it -> "redirect:/users/{id}")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
