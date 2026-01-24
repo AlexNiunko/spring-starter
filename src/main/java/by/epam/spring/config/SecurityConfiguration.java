@@ -1,9 +1,9 @@
 package by.epam.spring.config;
 
+import by.epam.spring.database.entity.Role;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -16,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfiguration {
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
@@ -26,13 +26,18 @@ public class SecurityConfiguration {
         return http.csrf(AbstractHttpConfigurer::disable)
 //                .httpBasic(Customizer.withDefaults())
                 .formLogin(form -> form.loginPage("/login")
-                        .defaultSuccessUrl("/users")
-                        .permitAll())
-                .logout(logout->logout
+                        .defaultSuccessUrl("/users"))
+                .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/users")
                         .deleteCookies("JSESSIONID"))
-                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/login", "/users/registration", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
+                        .requestMatchers("/users/{id}/delete").hasAuthority("ADMIN")
+                        .requestMatchers("/admin/**").hasAuthority(Role.ADMIN.getAuthority())
+                        .anyRequest().authenticated()
+
+                )
                 .build();
     }
 
