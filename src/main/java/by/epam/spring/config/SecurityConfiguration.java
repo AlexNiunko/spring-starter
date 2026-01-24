@@ -28,6 +28,10 @@ public class SecurityConfiguration {
                 .formLogin(form -> form.loginPage("/login")
                         .defaultSuccessUrl("/users")
                         .permitAll())
+                .logout(logout->logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/users")
+                        .deleteCookies("JSESSIONID"))
                 .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
                 .build();
     }
