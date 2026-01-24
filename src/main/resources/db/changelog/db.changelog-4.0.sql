@@ -6,5 +6,5 @@ ALTER table users
 
 --changeset AlexNiunko:2
 ALTER table users_aud
-    ADD COLUMN password VARCHAR(18);
+    ADD COLUMN password VARCHAR(128);
 

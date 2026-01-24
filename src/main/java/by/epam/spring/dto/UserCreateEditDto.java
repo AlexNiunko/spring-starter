@@ -5,6 +5,7 @@ import by.epam.spring.validation.UserInfo;
 import by.epam.spring.validation.group.CreateAction;
 import by.epam.spring.validation.group.UpdateAction;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
@@ -20,6 +21,9 @@ public class UserCreateEditDto {
 
     @Email
     String username;
+
+    @NotBlank(groups = CreateAction.class)
+    String rawPassword;
 
     @Size(min = 3, max = 64)
     String firstname;
