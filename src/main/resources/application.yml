@@ -34,15 +34,15 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id:
-            client-secret:
-            redirect-uri:
-            scope: openid,email,profile
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          google:
+#            client-id:
+#            client-secret:
+#            redirect-uri:
+#            scope: openid,email,profile
 
   datasource:
     username: user
@@ -62,12 +62,12 @@ spring:
     open-in-view: false
   messages:
     basename: messages
-springdoc:
-  swagger-ui:
-    oauth:
-      client-id:
-      client-secret:
-      scopes: openid,email,profile
-    oauth2-redirect-url:
+#springdoc:
+#  swagger-ui:
+#    oauth:
+#      client-id:
+#      client-secret:
+#      scopes: openid,email,profile
+#    oauth2-redirect-url:
 
 #spring.profiles.active:qa

@@ -70,11 +70,11 @@ public class SecurityConfiguration {
                         .requestMatchers("/admin/**").hasAuthority(Role.ADMIN.getAuthority())
                         .anyRequest().authenticated()
                 )
-                .oauth2Login(config -> config
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/users")
-                        .userInfoEndpoint(userInfo -> userInfo
-                                .oidcUserService(oidcUserService())))
+//                .oauth2Login(config -> config
+//                        .loginPage("/login")
+//                        .defaultSuccessUrl("/users")
+//                        .userInfoEndpoint(userInfo -> userInfo
+//                                .oidcUserService(oidcUserService())))
                 .build();
     }
 
