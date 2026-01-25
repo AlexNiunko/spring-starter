@@ -42,7 +42,7 @@ spring:
             client-id:
             client-secret:
             redirect-uri:
-            scope: openid,email,profile
+            scope:
 
   datasource:
     username: user
@@ -60,4 +60,12 @@ spring:
       batch_size: 50
       show-sql: true
     open-in-view: false
+springdoc:
+  swagger-ui:
+    oauth:
+      client-id:
+      client-secret:
+      scopes:
+    oauth2-redirect-url:
+
 #spring.profiles.active:qa
