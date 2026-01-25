@@ -38,7 +38,7 @@ public class UserService implements UserDetailsService {
     private final ImageService imageService;
 
 //    @PostFilter("filterObject.role.name.equals('ADMIN')")
-    @PostFilter("@companyService.findById(filterObject.company.id()).isPresent()")
+//    @PostFilter("@companyService.findById(filterObject.company.id()).isPresent()")
     public Page<UserReadDto> findAll(UserFilter filter, Pageable pageable) {
 
         var predicate = QPredicates.builder()

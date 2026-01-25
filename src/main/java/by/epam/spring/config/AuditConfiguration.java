@@ -8,6 +8,9 @@ import org.springframework.data.envers.repository.config.EnableEnversRepositorie
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.util.Optional;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @EnableJpaAuditing
 @EnableEnversRepositories(basePackageClasses = ApplicationRunner.class)
@@ -17,7 +20,9 @@ public class AuditConfiguration {
     @Bean
     public AuditorAware<String> auditorAware(){
         //SecurityContext.getCurrentUser()
-        return ()-> Optional.of("AlexNiunko");
+        return ()-> Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
+                .map(authentication -> (UserDetails)authentication.getPrincipal() )
+                .map(UserDetails::getUsername);
     }
 
 
