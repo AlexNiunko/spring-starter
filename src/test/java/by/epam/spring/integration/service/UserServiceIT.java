@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
+import org.springframework.mock.web.MockMultipartFile;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -45,9 +46,11 @@ public class UserServiceIT extends IntegrationBaseTest {
                 "test@mail.ru",
                 "tesst",
                 "test",
+                "test",
                 LocalDate.now(),
                 Role.USER,
-                COMPANY_ID
+                COMPANY_ID,
+                new MockMultipartFile("test",new byte[0])
         );
         var actualResult = userService.create(userDto);
         assertEquals(userDto.getUsername(),actualResult.getUsername());
@@ -64,9 +67,11 @@ public class UserServiceIT extends IntegrationBaseTest {
                 "test@mail.ru",
                 "tesst",
                 "test",
+                "test",
                 LocalDate.now(),
                 Role.USER,
-                COMPANY_ID
+                COMPANY_ID,
+                new MockMultipartFile("test",new byte[0])
         );
         var actualResult = userService.update(USER_1, userDto);
 
