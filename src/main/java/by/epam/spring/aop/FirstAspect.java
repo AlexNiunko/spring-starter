@@ -2,6 +2,9 @@ package by.epam.spring.aop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -98,6 +101,21 @@ public class FirstAspect {
                            Object serviceProxy,
                            Transactional transactional) {
         log.info("Invoked findById method in class {},with id {}",service,id);
+    }
+
+    @AfterReturning(value = "anyFindByIdServiceMethod() && target(service)",returning = "result", argNames = "result,service")
+    public void addLoggingAfterReturning(Object result,Object service){
+        log.info("after returning - invoked findById method in class {},result {}",service,result);
+    }
+
+    @AfterThrowing(value = "anyFindByIdServiceMethod() && target(service)",throwing = "exception")
+    public void addLoggingAfterThrowing(Throwable exception,Object service){
+        log.info("after throwing - invoked findById method in class {},exception {}: {}",service,exception.getClass(),exception.getMessage());
+    }
+
+    @After(value = "anyFindByIdServiceMethod() && target(service)")
+    public void addLoggingAfterFinally(Object service){
+        log.info("after finally - invoked findById method in class {}",service);
     }
 
 }
