@@ -42,7 +42,7 @@ spring:
             client-id:
             client-secret:
             redirect-uri:
-            scope:
+            scope: openid,email,profile
 
   datasource:
     username: user
@@ -67,7 +67,7 @@ springdoc:
     oauth:
       client-id:
       client-secret:
-      scopes:
+      scopes: openid,email,profile
     oauth2-redirect-url:
 
 #spring.profiles.active:qa
