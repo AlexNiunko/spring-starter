@@ -1,11 +1,10 @@
-package by.epam.spring.aop;
+package by.epam.logging.aop;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 @Aspect
-@Component
 public class CommonPointClass {
 
     /*
@@ -19,11 +18,9 @@ public class CommonPointClass {
     /*
      within - check class type name
     */
-    @Pointcut("within(by.epam.spring.service.*Service)")
+    @Pointcut("within(by.epam.*.service.*Service)")
     public void isServiceLayer() {
 
     }
-
-
 
 }

@@ -69,5 +69,7 @@ spring:
 #      client-secret:
 #      scopes: openid,email,profile
 #    oauth2-redirect-url:
-
+app.common.logging:
+  enabled: true
+  level: INFO
 #spring.profiles.active:qa
