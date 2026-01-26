@@ -10,30 +10,15 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Aspect
+@Order(1)
 @Component
 public class FirstAspect {
-
-    /*
-     @within - check annotation on the class target
-     */
-    @Pointcut("@within(org.springframework.stereotype.Controller)")
-    public void isControllerLayer() {
-
-    }
-
-    /*
-     within - check class type name
-    */
-    @Pointcut("within(by.epam.spring.service.*Service)")
-    public void isServiceLayer() {
-
-    }
-
 
     /*
     this-check AOP proxy class type
@@ -49,7 +34,7 @@ public class FirstAspect {
     /*
      check annotation on the methods
      */
-    @Pointcut("isControllerLayer() && @annotation(org.springframework.web.bind.annotation.GetMapping)")
+    @Pointcut("by.epam.spring.aop.CommonPointClass.isControllerLayer() && @annotation(org.springframework.web.bind.annotation.GetMapping)")
     public void hasGetMapping() {
 
     }
@@ -59,7 +44,7 @@ public class FirstAspect {
     * - any param type
     .. - 0+ any params type
      */
-    @Pointcut("isControllerLayer() && args( org.springframework.ui.Model,..)")
+    @Pointcut("by.epam.spring.aop.CommonPointClass.isControllerLayer() && args( org.springframework.ui.Model,..)")
     public void hasModelParam() {
 
     }
@@ -119,22 +104,4 @@ public class FirstAspect {
     public void addLoggingAfterFinally(Object service) {
         log.info("after finally - invoked findById method in class {}", service);
     }
-
-    @Around(value = "anyFindByIdServiceMethod() && target(service) && args(id)", argNames = "joinPoint,service,id")
-    public Object addLoggingAround(ProceedingJoinPoint joinPoint, Object service, Object id) throws Throwable {
-        log.info("AROUND Invoked findById method in class {},with id {}", service, id);
-        try {
-            var result = joinPoint.proceed();
-            log.info("AROUND after returning - invoked findById method in class {},result {}", service, result);
-            return result;
-
-        } catch (Throwable exception) {
-            log.info("AROUND after throwing - invoked findById method in class {},exception {}: {}", service, exception.getClass(), exception.getMessage());
-            throw exception;
-        } finally {
-            log.info("AROUND after finally - invoked findById method in class {}", service);
-        }
-
-    }
-
 }
